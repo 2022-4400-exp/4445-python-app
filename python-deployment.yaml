@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pip
+  name: pip
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pip
+  template:
+    metadata:
+      labels:
+        app: pip
+    spec:
+      containers:
+      - image: w4445/python-app
+        name: python-app
+        volumeMounts:
+        - mountPath: /var/python-app
+          name: python-app-mount
+      volumes:
+      - name: python-app-mount
+        persistentVolumeClaim:
+          claimName: python-data
+
+        
